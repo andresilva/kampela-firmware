@@ -61,5 +61,24 @@ In case of ArchLinux there is [AUR package](https://aur.archlinux.org/packages/s
 ./binarize.sh --segger
 ```
 
+### Build/flash using nix
 
+If you are using NixOS you probably want to add a udev rule to be able to write to the serial port without root:
 
+```sh
+services.udev.extraRules = ''
+  SUBSYSTEM=="tty", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", MODE="0666"
+'';
+```
+
+Start a nix shell:
+
+```sh
+nix develop
+```
+
+You can then just use:
+
+```sh
+./binarize.sh
+```

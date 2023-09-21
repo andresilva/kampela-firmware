@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -17,7 +17,7 @@ arm-none-eabi-objcopy -O binary "$EXECUTABLE" "$FIRMWARE"
 echo "Flashing..."
 
 if [[ -z "$1" || "$1" == "--pilkki" ]]; then
-pilkki write -i "$FIRMWARE"
+pilkki write -p /dev/ttyACM0 -i "$FIRMWARE"
 elif [ "$1" == "--segger" ]; then
 commander flash "$FIRMWARE" --device EFM32PG23B200F512IM40 --address 0x08000000
 else
